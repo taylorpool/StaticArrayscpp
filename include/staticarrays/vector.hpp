@@ -56,15 +56,4 @@ Vector<T,N> operator-(const Vector<T,N>& v1, const Vector<T,N>& v2)
     return result;
 }
 
-template <size_t N>
-double norm(const Vectord<N>& vector)
-{
-    double result = 0.0;
-    for(size_t index = 0; index < N; ++index)
-    {
-        result += vector(index)*vector(index);
-    }
-    return std::sqrt(result); 
-}
-
 }

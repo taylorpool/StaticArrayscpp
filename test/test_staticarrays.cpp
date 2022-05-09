@@ -68,3 +68,49 @@ TEST(Matrix, Subtraction)
     Matrixi<1,1> C = A-B;
     ASSERT_EQ(C(0,0), a-b);
 }
+
+TEST(Matrix, Transpose)
+{
+    Matrixi<2,2> A;
+    A(0,0) = 0;
+    A(0,1) = 1;
+    A(1,0) = 2;
+    A(1,1) = 3;
+    Transpose<Matrixi<2,2>> At = transpose(A);
+    ASSERT_EQ(At(0,0), A(0,0));
+    ASSERT_EQ(At(0,1), A(1,0));
+    ASSERT_EQ(At(1,0), A(0,1));
+    ASSERT_EQ(At(1,1), A(1,1));
+}
+
+TEST(Vector, Transpose)
+{
+    Vectori<3> v;
+    v(0) = 0;
+    v(1) = 1;
+    v(2) = 2;
+    Transpose<Vectori<3>> vt = transpose(v);
+}
+
+TEST(MatrixVector, Muliplication)
+{
+    Matrixi<2,2> A;
+    A(0,0) = 0;
+    A(0,1) = 1;
+    A(1,0) = 1;
+    A(1,1) = 0;
+    Vectori<2> v;
+    v(0) = 1;
+    v(1) = 2;
+    Vectori<2> y = A*v;
+    ASSERT_EQ(y(0), v(1));
+    ASSERT_EQ(y(1), v(0));
+}
+
+TEST(VectorNorm, Double)
+{
+    Vectord<2> v;
+    v(0) = 3.0;
+    v(1) = 4.0;
+    ASSERT_DOUBLE_EQ(norm(v), 5.0);
+}
