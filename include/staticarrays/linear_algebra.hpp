@@ -31,4 +31,23 @@ Vectori<M> operator*(const Matrixi<M,N>& A, const Vectori<N>& x)
     }
     return result;
 }
+
+template <size_t M, size_t N, size_t S>
+Matrixi<M,S> operator*(const Matrixi<M,N>& A, const Matrixi<N,S>& B)
+{
+    Matrixi<M,S> result;
+    for(size_t row = 0; row < M; ++row)
+    {
+        for(size_t col = 0; col < S; ++col)
+        {
+            result(row,col) = 0;
+            for(size_t k = 0; k < N; ++k)
+            {
+                result(row,col) += A(row,k)*B(k,col);
+            }
+        }
+    }
+    return result;
+}
+
 }

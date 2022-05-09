@@ -107,10 +107,70 @@ TEST(MatrixVector, Muliplication)
     ASSERT_EQ(y(1), v(0));
 }
 
+TEST(MatrixMatrix, Multiplication)
+{
+    Matrixi<2,2> A;
+    A(0,0) = 0;
+    A(0,1) = 1;
+    A(1,0) = 1;
+    A(1,1) = 0;
+    Matrixi<2,2> B;
+    B(0,0) = -1;
+    B(0,1) = 0;
+    B(1,0) = 0;
+    B(1,1) = -1;
+    Matrixi<2,2> C = A*B;
+    ASSERT_EQ(C(0,0), 0);
+    ASSERT_EQ(C(0,1), -1);
+    ASSERT_EQ(C(1,0), -1);
+    ASSERT_EQ(C(1,1), 0);
+}
+
 TEST(VectorNorm, Double)
 {
     Vectord<2> v;
     v(0) = 3.0;
     v(1) = 4.0;
     ASSERT_DOUBLE_EQ(norm(v), 5.0);
+}
+
+TEST(UpperTriangular, Matrix)
+{
+    Matrixi<3,3> A;
+    A(0,0) = 0;
+    A(0,1) = 1;
+    A(0,2) = 2;
+    A(1,0) = 3;
+    A(1,1) = 4;
+    A(1,2) = 5;
+    A(2,0) = 6;
+    A(2,1) = 7;
+    A(2,2) = 8;
+
+    UpperTriangular<int,3> U = triu(A);
+
+    ASSERT_EQ(U(0,0), A(0,0));
+    ASSERT_EQ(U(0,1), A(0,1));
+    ASSERT_EQ(U(0,2), A(0,2));
+    ASSERT_EQ(U(1,0), 0);
+    ASSERT_EQ(U(1,1), A(1,1));
+    ASSERT_EQ(U(1,2), A(1,2));
+    ASSERT_EQ(U(2,0), 0);
+    ASSERT_EQ(U(2,1), 0);
+    ASSERT_EQ(U(2,2), A(2,2));
+}
+
+TEST(Cholesky, CholeskyDecomposition)
+{
+    Matrixd<2,2> A;
+    A(0,0) = 4.0;
+    A(0,1) = 0.0;
+    A(1,0) = 0.0;
+    A(1,1) = 4.0;
+
+    Cholesky<2> ch = cholesky(A);
+    ASSERT_DOUBLE_EQ(ch.U(0,0), 2.0);
+    ASSERT_DOUBLE_EQ(ch.U(0,1), 0.0);
+    ASSERT_DOUBLE_EQ(ch.U(1,0), 0.0);
+    ASSERT_DOUBLE_EQ(ch.U(1,1), 2.0);
 }
