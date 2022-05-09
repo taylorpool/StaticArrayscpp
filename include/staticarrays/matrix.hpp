@@ -21,6 +21,9 @@ class Matrix
         }
 };
 
+template <size_t M, size_t N>
+using Matrixi = Matrix<int,M,N>;
+
 template <typename T, size_t M, size_t N>
 Matrix<T,M,N> operator+(const Matrix<T,M,N>& A, const Matrix<T,M,N>& B)
 {
