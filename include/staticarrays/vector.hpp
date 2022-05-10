@@ -45,6 +45,16 @@ Vector<T,N> operator+(const Vector<T,N>& v1, const Vector<T,N>& v2)
     return result;
 }
 
+template <size_t N>
+Vectord<N>& operator+=(Vectord<N>& v1, const Vectord<N>& v2)
+{
+    for(size_t index = 0; index < N; ++index)
+    {
+        v1(index) += v2(index);
+    }
+    return v1;
+}
+
 template <typename T, size_t N>
 Vector<T,N> operator-(const Vector<T,N>& v1, const Vector<T,N>& v2)
 {

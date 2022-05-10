@@ -231,3 +231,19 @@ TEST(MatrixVector, DoubleMultiplication)
     ASSERT_DOUBLE_EQ(b(1), A(1,0)*x(0)+A(1,1)*x(1)+A(1,2)*x(2));
     ASSERT_DOUBLE_EQ(b(2), A(2,0)*x(0)+A(2,1)*x(1)+A(2,2)*x(2));
 }
+
+TEST(Vector, PlusEquals)
+{
+    Vectord<3> x;
+    x(0) = 0.0;
+    x(1) = 1.0;
+    x(2) = 2.0;
+    Vectord<3> y;
+    y(0) = -x(0);
+    y(1) = -x(1);
+    y(2) = -x(2);
+    x += y;
+    ASSERT_DOUBLE_EQ(x(0), 0.0);
+    ASSERT_DOUBLE_EQ(x(1), 0.0);
+    ASSERT_DOUBLE_EQ(x(2), 0.0);
+}
