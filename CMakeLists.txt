@@ -7,7 +7,7 @@ add_library(StaticArrays INTERFACE
 
 target_include_directories(StaticArrays INTERFACE include)
 
-option(ENABLE_TESTING "Enable Testing" ON)
+option(ENABLE_TESTING "Enable Testing" OFF)
 if(${ENABLE_TESTING})
         include(FetchContent)
         FetchContent_Declare(
