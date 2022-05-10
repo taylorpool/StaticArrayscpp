@@ -188,3 +188,13 @@ TEST(Vector, Exponent)
     ASSERT_DOUBLE_EQ(std::pow(v(1),exponent), v2(1));
     ASSERT_DOUBLE_EQ(std::pow(v(2),exponent), v2(2));
 }
+
+TEST(Vector, Sum)
+{
+    Vectori<3> v;
+    v(0) = 0;
+    v(1) = 1;
+    v(2) = 2;
+    int summation = sum(v);
+    ASSERT_EQ(summation, v(0)+v(1)+v(2));
+}

@@ -67,4 +67,16 @@ Vectord<N> operator^(const Vectord<N>& vector, double exponent)
     return result;
 }
 
+template <typename T, size_t N>
+T sum(const Vector<T,N>& vector)
+{
+    T result = vector(0);
+    for(size_t index = 1; index < N; ++index)
+    {
+        result += vector(index);
+    }
+    return result;
+}
+
+
 }
