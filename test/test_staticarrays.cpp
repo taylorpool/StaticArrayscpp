@@ -265,3 +265,15 @@ TEST(Vector, CrossProduct)
     ASSERT_DOUBLE_EQ(e3(1), 0.0);
     ASSERT_DOUBLE_EQ(e3(2), 1.0);
 }
+
+TEST(Vector, NegativeVector)
+{
+    Vectord<3> vector;
+    vector(0) = 10.0;
+    vector(1) = 5.0;
+    vector(2) = 6.3;
+    Vectord<3> neg_vector = -vector;
+    ASSERT_DOUBLE_EQ(neg_vector(0), -(vector(0)));
+    ASSERT_DOUBLE_EQ(neg_vector(1), -(vector(1)));
+    ASSERT_DOUBLE_EQ(neg_vector(2), -(vector(2)));
+}
