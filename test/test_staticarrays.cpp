@@ -277,3 +277,16 @@ TEST(Vector, NegativeVector)
     ASSERT_DOUBLE_EQ(neg_vector(1), -(vector(1)));
     ASSERT_DOUBLE_EQ(neg_vector(2), -(vector(2)));
 }
+
+TEST(Vector, DivideByScalar)
+{
+    Vectord<3> vector;
+    vector(0) = 2.0;
+    vector(1) = 4.0;
+    vector(2) = 6.0;
+    double factor = 2.0;
+    Vectord<3> divided = vector/factor;
+    ASSERT_DOUBLE_EQ(divided(0), vector(0)/factor);
+    ASSERT_DOUBLE_EQ(divided(1), vector(1)/factor);
+    ASSERT_DOUBLE_EQ(divided(2), vector(2)/factor);
+}
