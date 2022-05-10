@@ -247,3 +247,21 @@ TEST(Vector, PlusEquals)
     ASSERT_DOUBLE_EQ(x(1), 0.0);
     ASSERT_DOUBLE_EQ(x(2), 0.0);
 }
+
+TEST(Vector, CrossProduct)
+{
+    Vectord<3> e1;
+    e1(0) = 1.0;
+    e1(1) = 0.0;
+    e1(2) = 0.0;
+
+    Vectord<3> e2;
+    e2(0) = 0.0;
+    e2(1) = 1.0;
+    e2(2) = 0.0;
+
+    Vectord<3> e3 = cross(e1,e2);
+    ASSERT_DOUBLE_EQ(e3(0), 0.0);
+    ASSERT_DOUBLE_EQ(e3(1), 0.0);
+    ASSERT_DOUBLE_EQ(e3(2), 1.0);
+}
