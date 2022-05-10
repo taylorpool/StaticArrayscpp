@@ -9,7 +9,7 @@ TEST(Vector, IntSetValue)
 {
     Vectori<3> v;
     int value = 0;
-    size_t index = 0;
+    int index = 0;
     v(index) = value;
     ASSERT_EQ(v(index), value);
 }
@@ -161,6 +161,22 @@ TEST(UpperTriangular, Matrix)
     ASSERT_EQ(U(2,2), A(2,2));
 }
 
+TEST(UpperTriangular, Solve)
+{
+    UpperTriangular<double,2> U;
+    U(0,0) = 1.0;
+    U(0,1) = 0.0;
+    U(1,1) = 2.0;
+
+    Vectord<2> b;
+    b(0) = 10.0;
+    b(1) = 8.0;
+
+    Vectord<2> x = solve(U,b);
+    ASSERT_DOUBLE_EQ(x(0), b(0)/U(0,0));
+    ASSERT_DOUBLE_EQ(x(1), b(1)/U(1,1));
+}
+
 TEST(Cholesky, CholeskyDecomposition)
 {
     Matrixd<2,2> A;
@@ -174,6 +190,23 @@ TEST(Cholesky, CholeskyDecomposition)
     ASSERT_DOUBLE_EQ(ch.U(0,1), 0.0);
     ASSERT_DOUBLE_EQ(ch.U(1,0), 0.0);
     ASSERT_DOUBLE_EQ(ch.U(1,1), 2.0);
+}
+
+TEST(Cholesky, CholeskySolve)
+{
+    Matrixd<2,2> A;
+    A(0,0) = 4.0;
+    A(0,1) = 0.0;
+    A(1,0) = 0.0;
+    A(1,1) = 4.0;
+
+    Cholesky<2> ch = cholesky(A);
+    Vectord<2> b;
+    b(0) = 16.0;
+    b(1) = 4.0;
+
+    Vectord<2> x = solve(ch,b);
+    ASSERT_DOUBLE_EQ(x(0), b(0)/A(0,0));
 }
 
 TEST(Vector, Exponent)

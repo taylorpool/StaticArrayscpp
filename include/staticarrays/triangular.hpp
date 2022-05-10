@@ -1,5 +1,6 @@
 #pragma once
 
+#include "vector.hpp"
 #include "matrix.hpp"
 
 #include <iostream>
@@ -7,7 +8,7 @@
 namespace Static
 {
 
-template <typename T, size_t N>
+template <typename T, int N>
 class UpperTriangular
 {
     private:
@@ -15,7 +16,7 @@ class UpperTriangular
         T data_[N*(1+N)/2];
 
     public:
-        T& operator()(size_t row, size_t col)
+        T& operator()(int row, int col)
         {
             if(row > col)
             {
@@ -23,24 +24,38 @@ class UpperTriangular
             }
             else
             {
-                size_t index = row*(N-1)-(row-1)*row/2+col;
+                int index = row*(N-1)-(row-1)*row/2+col;
+                return data_[index];
+            }
+        }
+
+        T operator()(int row, int col) const
+        {
+            if(row > col)
+            {
+                return zero_element;
+            }
+            else
+            {
+                int index = row*(N-1)-(row-1)*row/2+col;
                 return data_[index];
             }
         }
 };
 
-template <typename T, size_t N>
+template <typename T, int N>
 UpperTriangular<T,N> triu(const Matrix<T,N,N>& matrix)
 {
     UpperTriangular<T,N> U;
-    for(size_t row = 0; row < N; ++row)
+    for(int row = 0; row < N; ++row)
     {
-        for(size_t col = row; col < N; ++col)
+        for(int col = row; col < N; ++col)
         {
             U(row,col) = matrix(row,col);
         } 
     }
     return U;
 }
+
 
 }

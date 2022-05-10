@@ -1,27 +1,29 @@
 #pragma once
 
+#include "vector.hpp"
 #include "matrix.hpp"
 #include "triangular.hpp"
+#include "transpose.hpp"
 
 namespace Static
 {
 
-template <size_t N>
+template <int N>
 struct Cholesky
 {
     UpperTriangular<double,N> U;
 };
 
-template <size_t N>
+template <int N>
 Cholesky<N> cholesky(const Matrixd<N,N>& A)
 {
     UpperTriangular<double,N> U;
-    for(size_t row = 0; row < N; ++row)
+    for(int row = 0; row < N; ++row)
     {
-        for(size_t col = 0; col < N; ++col)
+        for(int col = 0; col < N; ++col)
         {
             double sum = 0.0;
-            for(size_t k = 0; k < row; ++k)
+            for(int k = 0; k < row; ++k)
             {
                 sum += U(k,row)*U(k,col);
             }
@@ -37,6 +39,46 @@ Cholesky<N> cholesky(const Matrixd<N,N>& A)
     }
 
     return Cholesky<N> {U};
+}
+
+template <typename T, int N>
+Vector<T,N> solve(const UpperTriangular<T,N>& U, const Vector<T,N>& b)
+{
+    Vector<T,N> result;
+    for(int row = N-1; row >= 0; --row)
+    {
+        result(row) = b(row);
+        for(int col = row+1; col < N; ++col)
+        {
+            result(row) -= U(row,col)*result(col);
+        }
+        result(row) /= U(row,row);
+    }
+    return result;
+}
+
+template <int N>
+Vectord<N> solve(const Transpose<UpperTriangular<double,N>>& U, const Vectord<N>& b)
+{
+    Vectord<N> result;
+    for(int row = 0; row < N; ++row)
+    {
+        result(row) = b(row);
+        for(int col = 0; col < row; ++col)
+        {
+            result(row) -= U(row,col)*result(col);
+        }
+        result(row) /= U(row,row);
+    }
+    return result;
+}
+
+template <int N>
+Vectord<N> solve(const Cholesky<N>& cho, const Vectord<N>& b)
+{
+    Vectord<N> temp = solve(transpose(cho.U), b);
+    Vectord<N> result = solve(cho.U, temp);
+    return result;
 }
 
 }
