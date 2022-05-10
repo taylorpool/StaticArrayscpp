@@ -78,6 +78,17 @@ Vector<T,N> operator-(const Vector<T,N>& vector)
 }
 
 template <typename T, size_t N>
+Vector<T,N> operator*(const T& value, const Vector<T,N>& vector)
+{
+    Vector<T,N> result;
+    for(size_t index = 0; index < N; ++index)
+    {
+        result(index) = value*(vector(index));
+    }
+    return result;
+}
+
+template <typename T, size_t N>
 Vector<T,N> operator/(const Vector<T,N>& vector, const T& value)
 {
     Vector<T,N> result;

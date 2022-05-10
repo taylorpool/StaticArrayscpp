@@ -290,3 +290,16 @@ TEST(Vector, DivideByScalar)
     ASSERT_DOUBLE_EQ(divided(1), vector(1)/factor);
     ASSERT_DOUBLE_EQ(divided(2), vector(2)/factor);
 }
+
+TEST(Vector, MultiplyByScalar)
+{
+    Vectord<3> vector;
+    vector(0) = 1.0;
+    vector(1) = 2.0;
+    vector(2) = 3.0;
+    double factor = 2.0;
+    Vectord<3> result = factor*vector;
+    ASSERT_DOUBLE_EQ(result(0), factor*(vector(0)));
+    ASSERT_DOUBLE_EQ(result(1), factor*(vector(1)));
+    ASSERT_DOUBLE_EQ(result(2), factor*(vector(2)));
+}
