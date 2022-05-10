@@ -1,5 +1,6 @@
 #include "staticarrays/staticarrays.hpp"
 
+#include <cmath>
 #include <gtest/gtest.h>
 
 using namespace Static;
@@ -173,4 +174,17 @@ TEST(Cholesky, CholeskyDecomposition)
     ASSERT_DOUBLE_EQ(ch.U(0,1), 0.0);
     ASSERT_DOUBLE_EQ(ch.U(1,0), 0.0);
     ASSERT_DOUBLE_EQ(ch.U(1,1), 2.0);
+}
+
+TEST(Vector, Exponent)
+{
+    Vectord<3> v;
+    v(0) = 1.0;
+    v(1) = 2.0;
+    v(2) = 3.0;
+    double exponent = 2.0;
+    Vectord<3> v2 = v^exponent;
+    ASSERT_DOUBLE_EQ(std::pow(v(0),exponent), v2(0));
+    ASSERT_DOUBLE_EQ(std::pow(v(1),exponent), v2(1));
+    ASSERT_DOUBLE_EQ(std::pow(v(2),exponent), v2(2));
 }

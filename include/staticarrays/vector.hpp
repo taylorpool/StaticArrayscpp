@@ -56,4 +56,15 @@ Vector<T,N> operator-(const Vector<T,N>& v1, const Vector<T,N>& v2)
     return result;
 }
 
+template <size_t N>
+Vectord<N> operator^(const Vectord<N>& vector, double exponent)
+{
+    Vectord<N> result;
+    for(size_t index = 0; index < N; ++index)
+    {
+        result(index) = std::pow(vector(index), exponent);
+    }
+    return result;
+}
+
 }
