@@ -189,7 +189,7 @@ TEST(Vector, Exponent)
     ASSERT_DOUBLE_EQ(std::pow(v(2),exponent), v2(2));
 }
 
-TEST(Vector, Sum)
+TEST(Vector, SumInts)
 {
     Vectori<3> v;
     v(0) = 0;
@@ -197,4 +197,37 @@ TEST(Vector, Sum)
     v(2) = 2;
     int summation = sum(v);
     ASSERT_EQ(summation, v(0)+v(1)+v(2));
+}
+
+TEST(Vector, SumDoubles)
+{
+    Vectord<3> v;
+    v(0) = 0.0;
+    v(1) = 1.0;
+    v(2) = 2.0;
+    double summation = sum(v);
+    ASSERT_DOUBLE_EQ(summation, v(0)+v(1)+v(2));
+}
+
+TEST(MatrixVector, DoubleMultiplication)
+{
+    Matrixd<3,3> A;
+    Vectord<3> x;
+    A(0,0) = 1.0;
+    A(0,1) = 2.0;
+    A(0,2) = 3.0;
+    A(1,0) = 4.0;
+    A(1,1) = 5.0;
+    A(1,2) = 6.0;
+    A(2,0) = 7.0;
+    A(2,1) = 8.0;
+    A(2,2) = 9.0;
+    x(0) = 1.0;
+    x(1) = 2.0;
+    x(2) = 3.0;
+
+    Vectord<3> b = A*x;
+    ASSERT_DOUBLE_EQ(b(0), A(0,0)*x(0)+A(0,1)*x(1)+A(0,2)*x(2));
+    ASSERT_DOUBLE_EQ(b(1), A(1,0)*x(0)+A(1,1)*x(1)+A(1,2)*x(2));
+    ASSERT_DOUBLE_EQ(b(2), A(2,0)*x(0)+A(2,1)*x(1)+A(2,2)*x(2));
 }

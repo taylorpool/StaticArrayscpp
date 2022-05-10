@@ -17,14 +17,14 @@ double norm(const Vectord<N>& vector)
     return std::sqrt(result); 
 }
 
-template <size_t M, size_t N>
-Vectori<M> operator*(const Matrixi<M,N>& A, const Vectori<N>& x)
+template <typename T, size_t M, size_t N>
+Vector<T,M> operator*(const Matrix<T,M,N>& A, const Vector<T,N>& x)
 {
-    Vectori<M> result;
+    Vector<T,M> result;
     for(size_t row = 0; row < M; ++row)
     {
-        result(row) = 0;
-        for(size_t col = 0; col < N; ++col)
+        result(row) = A(row,0)*x(0);
+        for(size_t col = 1; col < N; ++col)
         {
             result(row) += A(row,col)*x(col);
         }
