@@ -3,8 +3,6 @@
 #include "vector.hpp"
 #include "matrix.hpp"
 
-#include <iostream>
-
 namespace Static
 {
 
